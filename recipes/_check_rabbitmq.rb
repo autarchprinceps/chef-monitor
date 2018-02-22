@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-include_recipe 'build-essential::default'
+include_recipe 'build-essential::default' unless node['os'] == 'windows'
 
 sensu_gem 'sensu-plugins-rabbitmq' do
-  version '3.5.0'
+  version node['monitor']['sensu_gem_versions']['sensu-plugins-rabbitmq']
 end
 
 sensu_check 'rabbitmq_process' do

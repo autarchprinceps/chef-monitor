@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'build-essential::default'
+include_recipe 'build-essential::default' unless node['os'] == 'windows'
 
 if node.key?('ec2')
 
@@ -26,7 +26,7 @@ if node.key?('ec2')
   end
 
   sensu_gem 'sensu-plugins-aws' do
-    version '8.2.0'
+    version node['monitor']['sensu_gem_versions']['sensu-plugins-aws']
   end
 
   include_recipe 'monitor::_filters'
